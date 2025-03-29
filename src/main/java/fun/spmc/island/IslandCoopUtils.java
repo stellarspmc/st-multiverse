@@ -8,8 +8,6 @@ import org.bukkit.entity.Player;
 public class IslandCoopUtils {
 
     public static CoopIsland getCoopIsland(MultiverseWorld world) {
-        if (!isCoopIsland(world)) return null;
-
         return new CoopIsland(world);
     }
 

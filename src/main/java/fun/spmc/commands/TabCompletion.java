@@ -14,8 +14,11 @@ public class TabCompletion implements TabCompleter {
     public @Nullable List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
         switch (command.getName()) {
             case "coop" -> {
-                if (strings.length == 1) return List.of("list", "invite", "remove", "accept", "reject");
-
+                if (strings.length == 1) {
+                    return List.of("list", "invite", "remove", "accept", "reject");
+                } else if (strings.length != 0) {
+                    if (strings[0].equals("invite") || strings[0].equals("remove")) return null;
+                }
             }
             case "island" -> {
                  switch (strings.length) {

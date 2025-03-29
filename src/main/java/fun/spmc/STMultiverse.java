@@ -16,9 +16,13 @@ public final class STMultiverse extends JavaPlugin {
 
     public static MultiverseCore core;
 
+    private static FileConfiguration config;
+
     @Override
     public void onEnable() {
         this.saveDefaultConfig();
+
+        config = getConfig();
 
         core = (MultiverseCore) Bukkit.getServer().getPluginManager().getPlugin("Multiverse-Core");
 
@@ -37,6 +41,6 @@ public final class STMultiverse extends JavaPlugin {
     }
 
     public static @NotNull FileConfiguration getPluginConfig() {
-        return new STMultiverse().getConfig();
+        return config;
     }
 }
