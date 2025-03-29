@@ -13,6 +13,7 @@ public class CreateIslandCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
         if (commandSender instanceof Player player) {
+            if (strings.length == 0) return falseArgument(player);
             return switch (strings[0]) {
                 case "create" -> IslandUtils.createIsland(player);
                 case "tp" -> IslandUtils.teleportPlayerIsland(player, strings[1]);

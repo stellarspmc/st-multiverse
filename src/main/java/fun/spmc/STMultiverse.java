@@ -18,6 +18,8 @@ public final class STMultiverse extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        this.saveDefaultConfig();
+
         core = (MultiverseCore) Bukkit.getServer().getPluginManager().getPlugin("Multiverse-Core");
 
         Objects.requireNonNull(getCommand("island")).setExecutor(new CreateIslandCommand());

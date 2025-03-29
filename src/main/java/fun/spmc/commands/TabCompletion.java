@@ -15,6 +15,7 @@ public class TabCompletion implements TabCompleter {
         switch (command.getName()) {
             case "coop" -> {
                 if (strings.length == 1) return List.of("list", "invite", "remove", "accept", "reject");
+
             }
             case "island" -> {
                  switch (strings.length) {
@@ -26,6 +27,6 @@ public class TabCompletion implements TabCompleter {
             }
         }
 
-        return null;
+        return List.of();
     }
 }
