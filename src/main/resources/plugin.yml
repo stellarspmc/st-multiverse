@@ -1,0 +1,21 @@
+name: st-multiverse
+version: '1.0'
+main: fun.spmc.STMultiverse
+api-version: '1.20'
+softdepend: ['Multiverse-Core']
+commands:
+  island:
+    alias: [ is ]
+    description: island cmd
+    usage: |
+      /island create - create island
+      /island tp - teleport to island
+      /island lobby - teleport to lobby
+      /island delete - delete island (no turning back)
+      /island coop - turn island into coop island
+  coop:
+    description: coop cmd
+    usage: |
+      /coop invite (...) - invite players
+      /coop remove (...) - remove players (instantly)
+      /coop list - list who in yo coop
