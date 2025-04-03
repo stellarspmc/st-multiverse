@@ -5,8 +5,8 @@ import fun.spmc.STMultiverse;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.text.MessageFormat;
+import java.util.*;
 
 import static fun.spmc.STMultiverse.core;
 
@@ -17,11 +17,11 @@ public class CoopIsland {
     private final Player coopLeader;
 
     public CoopIsland(MultiverseWorld world) {
-        this(world, Bukkit.getPlayer(world.getName().replace("island_", "")));
+        this(world, Bukkit.getPlayer(UUID.fromString(world.getName().replace("island_", ""))));
     }
 
     public CoopIsland(MultiverseWorld world, Player coopLeader) {
-        this(world, (ArrayList<Player>) List.of(coopLeader), coopLeader);
+        this(world, new ArrayList<>(Collections.singletonList(coopLeader)), coopLeader);
     }
 
     public CoopIsland(ArrayList<Player> coopMembers, Player coopLeader) {
@@ -33,8 +33,11 @@ public class CoopIsland {
         this.coopMembers = coopMembers;
         this.coopLeader = coopLeader;
 
-        if (STMultiverse.getPluginConfig().get(String.valueOf(coopLeader.getUniqueId())) == null)
-            STMultiverse.getPluginConfig().addDefault("%s.members".formatted(coopLeader.getUniqueId()), coopMembers.stream().map(Player::getName).toArray());
+        if (STMultiverse.getPlugin(STMultiverse.class).getConfig().get(MessageFormat.format("{0}.members", coopLeader.getUniqueId())) == null) {
+            STMultiverse.getPlugin(STMultiverse.class).getConfig().set(MessageFormat.format("{0}.members", coopLeader.getUniqueId()), (coopMembers.stream().map(Player::getUniqueId).map(UUID::toString)).toArray());
+            STMultiverse.getPlugin(STMultiverse.class).saveConfig();
+            CoopCache.addIsland(this);
+        }
     }
 
     public ArrayList<Player> getCoopMembers() {
@@ -46,7 +49,7 @@ public class CoopIsland {
     }
 
     public void addPlayers(Player... players) {
-        coopMembers.addAll(List.of(players));
+        Collections.addAll(coopMembers, players);
         saveCoop();
     }
 
@@ -64,6 +67,7 @@ public class CoopIsland {
     }
 
     private void saveCoop() {
-        STMultiverse.getPluginConfig().set("%s.members".formatted(coopLeader.getUniqueId()), coopMembers.stream().map(Player::getName).toArray());
+        STMultiverse.getPlugin(STMultiverse.class).getConfig().set(MessageFormat.format("{0}.members", coopLeader.getUniqueId()), (coopMembers.stream().map(Player::getUniqueId).map(UUID::toString)).toArray());
+        STMultiverse.getPlugin(STMultiverse.class).saveConfig();
     }
 }

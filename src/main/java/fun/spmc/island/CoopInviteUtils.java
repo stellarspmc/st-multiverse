@@ -1,6 +1,8 @@
 package fun.spmc.island;
 
-import org.bukkit.ChatColor;
+import fun.spmc.STMultiverse;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.entity.Player;
 
 import java.util.List;
@@ -9,17 +11,17 @@ public class CoopInviteUtils {
 
     public static void invitePlayer(CoopIsland island, Player player) {
         if (CoopInviteCache.hasInvited(island, player)) {
-            island.getCoopLeader().sendMessage("%sERROR: You have already invited %s!".formatted(ChatColor.RED, player.getDisplayName()));
+            STMultiverse.adventure().player(island.getCoopLeader()).sendMessage(Component.text("ERROR: You have already invited %s!".formatted(player.getDisplayName())).color(NamedTextColor.RED));
             return;
         }
 
         if (CoopInviteCache.invitePlayer(island, player)) {
-            island.getCoopLeader().sendMessage("%sYou have invited %s to join the coop!".formatted(ChatColor.GREEN, player.getDisplayName()));
-            player.sendMessage("%s%s has invited you to join their coop!".formatted(ChatColor.GREEN, island.getCoopLeader().getDisplayName()));
+            STMultiverse.adventure().player(island.getCoopLeader()).sendMessage(Component.text("You have invited %s to join the coop!".formatted(player.getDisplayName())).color(NamedTextColor.GREEN));
+            STMultiverse.adventure().player(player).sendMessage(Component.text("%s has invited you to join their coop!".formatted(island.getCoopLeader().getDisplayName())).color(NamedTextColor.AQUA));
             return;
         }
 
-        island.getCoopLeader().sendMessage("%sERROR: %s may already be in a coop.".formatted(ChatColor.RED, player.getDisplayName()));
+        STMultiverse.adventure().player(island.getCoopLeader()).sendMessage(Component.text("ERROR: %s may already be in a coop.".formatted(player.getDisplayName())).color(NamedTextColor.RED));
     }
 
     public static boolean bulkInvite(CoopIsland island, Player[] players) {
@@ -33,12 +35,12 @@ public class CoopInviteUtils {
 
             assert island != null;
             CoopInviteCache.acceptInvite(island, player);
-            island.getCoopLeader().sendMessage("%s%s has accepted to join your coop!".formatted(ChatColor.GREEN, player.getDisplayName()));
-            player.sendMessage("%sYou have accepted to join %s's coop!".formatted(ChatColor.GREEN, island.getCoopLeader().getDisplayName()));
+            STMultiverse.adventure().player(island.getCoopLeader()).sendMessage(Component.text("%s has accepted to join your coop!".formatted(player.getDisplayName())).color(NamedTextColor.GREEN));
+            STMultiverse.adventure().player(player).sendMessage(Component.text("You have accepted to join %s's coop!".formatted(island.getCoopLeader().getDisplayName())).color(NamedTextColor.GREEN));
             return true;
         }
 
-        player.sendMessage("%sERROR: You are not invited!".formatted(ChatColor.RED));
+        STMultiverse.adventure().player(player).sendMessage(Component.text("ERROR: You are not invited!").color(NamedTextColor.RED));
         return false;
     }
 
@@ -48,12 +50,12 @@ public class CoopInviteUtils {
 
             assert island != null;
             CoopInviteCache.rejectInvite(island, player);
-            island.getCoopLeader().sendMessage("%s%s has rejected to join your coop!".formatted(ChatColor.GREEN, player.getDisplayName()));
-            player.sendMessage("%sYou have rejected to join %s's coop!".formatted(ChatColor.GREEN, island.getCoopLeader().getDisplayName()));
+            STMultiverse.adventure().player(island.getCoopLeader()).sendMessage(Component.text("%s has rejected to join your coop!".formatted(player.getDisplayName())).color(NamedTextColor.GREEN));
+            STMultiverse.adventure().player(player).sendMessage(Component.text("You have rejected to join %s's coop!".formatted(island.getCoopLeader().getDisplayName())).color(NamedTextColor.GREEN));
             return true;
         }
 
-        player.sendMessage("%sERROR: You are not invited!".formatted(ChatColor.RED));
+        STMultiverse.adventure().player(player).sendMessage(Component.text("ERROR: You are not invited!").color(NamedTextColor.RED));
         return false;
     }
 }

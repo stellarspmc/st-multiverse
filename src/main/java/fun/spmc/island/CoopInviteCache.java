@@ -9,7 +9,7 @@ public class CoopInviteCache {
     private static final HashMap<CoopIsland, Player> coopInviteCache = new HashMap<>();
 
     public static boolean invitePlayer(CoopIsland island, Player player) {
-        if (!coopInviteCache.containsValue(player)) {
+        if (!coopInviteCache.containsValue(player) && CoopCache.getIslandByOwner(player) == null) {
             coopInviteCache.put(island, player);
             return true;
         }
@@ -25,7 +25,7 @@ public class CoopInviteCache {
     }
 
     public static CoopIsland getInvitation(Player player) {
-        if (isInvited(player)) return null;
+        if (!isInvited(player)) return null;
         for (Map.Entry<CoopIsland, Player> entry : coopInviteCache.entrySet()) {
             if (entry.getValue().equals(player)) return entry.getKey();
         }

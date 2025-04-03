@@ -1,13 +1,13 @@
-package fun.spmc.commands.coop;
+package fun.spmc.commands;
 
+import fun.spmc.STMultiverse;
 import fun.spmc.island.CoopCache;
 import fun.spmc.island.CoopInviteUtils;
 import fun.spmc.island.CoopIsland;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
+import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -18,18 +18,18 @@ public class ManageCoopCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
         if (commandSender instanceof Player player) {
-            if (CoopCache.getIsland(player) != null) {
-                CoopIsland coopIsland = CoopCache.getIsland(player);
-
-                assert coopIsland != null;
+            if (strings.length == 0) return falseArgument(player);
+            CoopIsland coopIsland = CoopCache.getIsland(player);
+            if (coopIsland != null) {
                 if (strings[0].equalsIgnoreCase("list")) return sendList(coopIsland, player);
+                if (strings[0].equalsIgnoreCase("leave")) return wip(player);
                 if (coopIsland.getCoopLeader() == player) {
                     return switch (strings[0]) {
                         case "invite" -> CoopInviteUtils.bulkInvite(coopIsland, Arrays.stream(Arrays.copyOfRange(strings, 1, strings.length)).map(Bukkit::getPlayer).toArray(Player[]::new));
                         case "remove" -> wip(player);
                         default -> falseArgument(player);
                     };
-                } else player.sendMessage("%sYou are not a coop leader!".formatted(ChatColor.RED));
+                } else STMultiverse.adventure().player(player).sendMessage(Component.text("You are not a coop leader!").color(NamedTextColor.RED));
             } else {
                 return switch(strings[0]) {
                     case "accept" -> CoopInviteUtils.acceptInvite(player);
@@ -43,22 +43,22 @@ public class ManageCoopCommand implements CommandExecutor {
     }
 
     private static boolean sendList(CoopIsland coopIsland, Player player) {
-        player.sendMessage(ChatColor.AQUA + coopIsland.getCoopMembers().stream().map(Player::getName).collect(Collectors.joining(", ")));
+        STMultiverse.adventure().player(player).sendMessage(Component.text("Players in").appendSpace().append(Component.text(coopIsland.getCoopLeader().getName())).append(Component.text("'s coop:")).appendSpace().append(Component.text(coopIsland.getCoopMembers().stream().map(Player::getName).collect(Collectors.joining(", "))).color(NamedTextColor.AQUA)));
         return true;
     }
 
     private static boolean falseArgument(Player player) {
-        player.sendMessage("%sUse /coop (invite / list / remove) to manage your coop.".formatted(ChatColor.RED));
+        STMultiverse.adventure().player(player).sendMessage(Component.text("Use /coop (invite / list / remove) to manage your coop.").color(NamedTextColor.RED));
         return false;
     }
 
     private static boolean wip(Player player) {
-        player.sendMessage("%sWork in progress!".formatted(ChatColor.RED));
+        STMultiverse.adventure().player(player).sendMessage(Component.text("Work in progress!").color(NamedTextColor.RED));
         return false;
     }
 
     private static boolean falseArgument2(Player player) {
-        player.sendMessage("%sYou do not own a coop!".formatted(ChatColor.RED));
+        STMultiverse.adventure().player(player).sendMessage(Component.text("You do not own a coop!").color(NamedTextColor.RED));
         return false;
     }
 }

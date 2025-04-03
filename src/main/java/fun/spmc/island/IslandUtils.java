@@ -1,9 +1,14 @@
 package fun.spmc.island;
 
 import com.onarandombox.MultiverseCore.api.MultiverseWorld;
-import org.bukkit.ChatColor;
+import fun.spmc.STMultiverse;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+
+import java.text.MessageFormat;
+import java.util.Objects;
 
 import static fun.spmc.STMultiverse.core;
 
@@ -14,55 +19,69 @@ public class IslandUtils {
     }
 
     public static boolean createIsland(Player player) {
-        if (doesIslandExist(player)) return false;
-        boolean clone = core.getMVWorldManager().cloneWorld("world2", "island_%s".formatted(player.getUniqueId()));
-        if (clone) player.sendMessage("%sCreated island!".formatted(ChatColor.GREEN));
-        else player.sendMessage("%sFailed to create island.".formatted(ChatColor.RED));
+        if (doesIslandExist(player)) {
+            STMultiverse.adventure().player(player).sendMessage(Component.text("Island exists already!").color(NamedTextColor.RED));
+            return false;
+        }
+        boolean clone = core.getMVWorldManager().cloneWorld("world2", MessageFormat.format("island_{0}", player.getUniqueId()));
+        if (clone) STMultiverse.adventure().player(player).sendMessage(Component.text("Created island!").color(NamedTextColor.GREEN));
+        else STMultiverse.adventure().player(player).sendMessage(Component.text("Failed to create island.").color(NamedTextColor.RED));
         return clone;
     }
 
 
     public static boolean deleteIsland(Player player) {
-        if (!doesIslandExist(player)) return false;
-        teleportPlayerLobby(player);
+        if (!doesIslandExist(player)) {
+            STMultiverse.adventure().player(player).sendMessage(Component.text("Create an island with /island create first!").color(NamedTextColor.RED));
+            return false;
+        }
 
-        boolean del = core.getMVWorldManager().deleteWorld("island_%s".formatted(player.getUniqueId()));
-        if (del) player.sendMessage("%sDeleted island!".formatted(ChatColor.GREEN));
-        else player.sendMessage("%sFailed to delete island.".formatted(ChatColor.RED));
+        if (CoopCache.getIslandByOwner(player) != null) CoopCache.removeIsland(CoopCache.getIsland(player));
+        if (player.getWorld().getName().equals(MessageFormat.format("island_{0}", player.getUniqueId()))) teleportPlayerLobby(player);
+        boolean del = core.getMVWorldManager().deleteWorld(MessageFormat.format("island_{0}", player.getUniqueId()));
+        if (del) STMultiverse.adventure().player(player).sendMessage(Component.text("Deleted island!").color(NamedTextColor.GREEN));
+        else STMultiverse.adventure().player(player).sendMessage(Component.text("Failed to delete island.").color(NamedTextColor.RED));
         return del;
     }
 
     public static boolean turnIslandCoop(Player player) {
-        if (!doesIslandExist(player)) return false;
+        if (!doesIslandExist(player)) {
+            STMultiverse.adventure().player(player).sendMessage(Component.text("Create an island with /island create first!").color(NamedTextColor.RED));
+            return false;
+        }
+        if (CoopCache.getIslandByOwner(player) != null) {
+            STMultiverse.adventure().player(player).sendMessage(Component.text("Your island is already a coop!").color(NamedTextColor.RED));
+            return false;
+        }
+        if (CoopCache.getIsland(player) != null) {
+            STMultiverse.adventure().player(player).sendMessage(Component.text("You are already in a coop!").color(NamedTextColor.RED));
+            return false;
+        }
         CoopIsland coopIsland = IslandCoopUtils.turnIslandIntoCoop(getIsland(player));
         boolean coop = (coopIsland.getCoopLeader() != null);
-        if (coop) player.sendMessage("%sTurned island into coop! Invite players via /coop invite <name>.".formatted(ChatColor.GREEN));
-        else player.sendMessage("%sFailed to turn island into coop.".formatted(ChatColor.RED));
+        if (coop) STMultiverse.adventure().player(player).sendMessage(Component.text("Turned island into coop! Invite players via /coop invite <name>.").color(NamedTextColor.GOLD));
+        else STMultiverse.adventure().player(player).sendMessage(Component.text("Failed to turn island into coop.").color(NamedTextColor.RED));
         return coop;
     }
 
     public static MultiverseWorld getIsland(Player player) {
-        return core.getMVWorldManager().getMVWorld("island_%s".formatted(player.getUniqueId()));
+        return core.getMVWorldManager().getMVWorld(MessageFormat.format("island_{0}", player.getUniqueId()));
     }
 
-    public static boolean teleportPlayerIsland(Player player, String string) {
-        if (!doesIslandExist(player) || CoopCache.getIsland(player) == null) {
-            player.sendMessage("%sCreate an island with /island create first!".formatted(ChatColor.RED));
+    public static boolean teleportPlayerIsland(Player player, String[] strings) {
+        if (!doesIslandExist(player) && CoopCache.getIsland(player) == null) {
+            STMultiverse.adventure().player(player).sendMessage(Component.text("Create an island with /island create first!").color(NamedTextColor.RED));
             return false;
         }
 
-        switch (string) {
-            case "solo" -> {
-                core.teleportPlayer(player, player, new Location(getIsland(player).getCBWorld(), 3, 67, 3));
-                return true;
-            }
-            case "coop" -> {
-                core.teleportPlayer(player, player, new Location(CoopCache.getIsland(player).getMVWorld().getCBWorld(), 3, 67, 3));
+        if (strings.length > 1) {
+            if (strings[1].equals("coop") && CoopCache.getIsland(player) != null) {
+                core.teleportPlayer(player, player, new Location(Objects.requireNonNull(CoopCache.getIsland(player)).getMVWorld().getCBWorld(), 3, 67, 3));
                 return true;
             }
         }
-
-        return false;
+        core.teleportPlayer(player, player, new Location(getIsland(player).getCBWorld(), 3, 67, 3));
+        return true;
     }
 
     public static boolean teleportPlayerLobby(Player player) {

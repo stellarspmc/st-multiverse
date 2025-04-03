@@ -5,18 +5,12 @@ import fun.spmc.STMultiverse;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import java.util.UUID;
+
 public class IslandCoopUtils {
 
     public static CoopIsland getCoopIsland(MultiverseWorld world) {
         return new CoopIsland(world);
-    }
-
-    public static boolean isCoopIsland(MultiverseWorld world) {
-        String coopLeader = world.getName().replace("island_", "");
-        Player coopLeaderPlayer = Bukkit.getPlayer(coopLeader);
-
-        assert coopLeaderPlayer != null;
-        return STMultiverse.getPluginConfig().get(String.valueOf(coopLeaderPlayer.getUniqueId())) != null;
     }
 
     public static CoopIsland turnIslandIntoCoop(MultiverseWorld world) {
