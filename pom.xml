@@ -6,7 +6,7 @@
 
     <groupId>fun.spmc</groupId>
     <artifactId>startech-multiverse</artifactId>
-    <version>1.0.1</version>
+    <version>1.11</version>
     <packaging>jar</packaging>
 
     <name>startech-multiverse</name>
@@ -121,7 +121,7 @@
         <dependency>
             <groupId>com.github.technicallycoded</groupId>
             <artifactId>FoliaLib</artifactId>
-            <version>main-SNAPSHOT</version>
+            <version>0.4.4</version>
             <scope>compile</scope>
         </dependency>
 

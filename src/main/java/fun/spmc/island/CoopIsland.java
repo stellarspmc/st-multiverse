@@ -36,7 +36,6 @@ public class CoopIsland {
         if (STMultiverse.getPlugin(STMultiverse.class).getConfig().get(MessageFormat.format("{0}.members", coopLeader.getUniqueId())) == null) {
             STMultiverse.getPlugin(STMultiverse.class).getConfig().set(MessageFormat.format("{0}.members", coopLeader.getUniqueId()), (coopMembers.stream().map(Player::getUniqueId).map(UUID::toString)).toArray());
             STMultiverse.getPlugin(STMultiverse.class).saveConfig();
-            CoopCache.addIsland(this);
         }
     }
 
@@ -59,7 +58,7 @@ public class CoopIsland {
     }
 
     public boolean playerInCoop(Player player) {
-        return coopMembers.contains(player);
+        return coopMembers.contains(player) || coopLeader == player;
     }
 
     public MultiverseWorld getMVWorld() {

@@ -20,6 +20,7 @@ public class ManageCoopCommand implements CommandExecutor {
         if (commandSender instanceof Player player) {
             if (strings.length == 0) return falseArgument(player);
             CoopIsland coopIsland = CoopCache.getIsland(player);
+            System.out.println(coopIsland);
             if (coopIsland != null) {
                 if (strings[0].equalsIgnoreCase("list")) return sendList(coopIsland, player);
                 if (strings[0].equalsIgnoreCase("leave")) return wip(player);
@@ -43,7 +44,12 @@ public class ManageCoopCommand implements CommandExecutor {
     }
 
     private static boolean sendList(CoopIsland coopIsland, Player player) {
-        STMultiverse.adventure().player(player).sendMessage(Component.text("Players in").appendSpace().append(Component.text(coopIsland.getCoopLeader().getName())).append(Component.text("'s coop:")).appendSpace().append(Component.text(coopIsland.getCoopMembers().stream().map(Player::getName).collect(Collectors.joining(", "))).color(NamedTextColor.AQUA)));
+        STMultiverse.adventure().player(player).sendMessage(Component.text("Players in")
+                .appendSpace()
+                .append(Component.text(coopIsland.getCoopLeader().getName()))
+                .append(Component.text("'s coop:"))
+                .appendSpace()
+                .append(Component.text(coopIsland.getCoopMembers().stream().map(Player::getName).collect(Collectors.joining(", "))).color(NamedTextColor.AQUA)));
         return true;
     }
 

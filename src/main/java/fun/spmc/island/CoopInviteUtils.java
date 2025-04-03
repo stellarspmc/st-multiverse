@@ -9,19 +9,21 @@ import java.util.List;
 
 public class CoopInviteUtils {
 
-    public static void invitePlayer(CoopIsland island, Player player) {
+    private static void invitePlayer(CoopIsland island, Player player) {
         if (CoopInviteCache.hasInvited(island, player)) {
             STMultiverse.adventure().player(island.getCoopLeader()).sendMessage(Component.text("ERROR: You have already invited %s!".formatted(player.getDisplayName())).color(NamedTextColor.RED));
+            return;
+        }
+
+        if (CoopCache.getIsland(player) != null) {
+            STMultiverse.adventure().player(island.getCoopLeader()).sendMessage(Component.text("ERROR: %s is already in a coop.".formatted(player.getDisplayName())).color(NamedTextColor.RED));
             return;
         }
 
         if (CoopInviteCache.invitePlayer(island, player)) {
             STMultiverse.adventure().player(island.getCoopLeader()).sendMessage(Component.text("You have invited %s to join the coop!".formatted(player.getDisplayName())).color(NamedTextColor.GREEN));
             STMultiverse.adventure().player(player).sendMessage(Component.text("%s has invited you to join their coop!".formatted(island.getCoopLeader().getDisplayName())).color(NamedTextColor.AQUA));
-            return;
         }
-
-        STMultiverse.adventure().player(island.getCoopLeader()).sendMessage(Component.text("ERROR: %s may already be in a coop.".formatted(player.getDisplayName())).color(NamedTextColor.RED));
     }
 
     public static boolean bulkInvite(CoopIsland island, Player[] players) {

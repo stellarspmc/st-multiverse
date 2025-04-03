@@ -8,3 +8,5 @@ commands:
     description: island cmd
   coop:
     description: coop cmd
+  isa:
+    description: island admin cmd

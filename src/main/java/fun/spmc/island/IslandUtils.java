@@ -23,6 +23,7 @@ public class IslandUtils {
             STMultiverse.adventure().player(player).sendMessage(Component.text("Island exists already!").color(NamedTextColor.RED));
             return false;
         }
+
         boolean clone = core.getMVWorldManager().cloneWorld("world2", MessageFormat.format("island_{0}", player.getUniqueId()));
         if (clone) STMultiverse.adventure().player(player).sendMessage(Component.text("Created island!").color(NamedTextColor.GREEN));
         else STMultiverse.adventure().player(player).sendMessage(Component.text("Failed to create island.").color(NamedTextColor.RED));
@@ -36,7 +37,7 @@ public class IslandUtils {
             return false;
         }
 
-        if (CoopCache.getIslandByOwner(player) != null) CoopCache.removeIsland(CoopCache.getIsland(player));
+        if (CoopCache.getIslandByOwner(player) != null) CoopCache.removeIsland(CoopCache.getIslandByOwner(player));
         if (player.getWorld().getName().equals(MessageFormat.format("island_{0}", player.getUniqueId()))) teleportPlayerLobby(player);
         boolean del = core.getMVWorldManager().deleteWorld(MessageFormat.format("island_{0}", player.getUniqueId()));
         if (del) STMultiverse.adventure().player(player).sendMessage(Component.text("Deleted island!").color(NamedTextColor.GREEN));
@@ -48,16 +49,16 @@ public class IslandUtils {
         if (!doesIslandExist(player)) {
             STMultiverse.adventure().player(player).sendMessage(Component.text("Create an island with /island create first!").color(NamedTextColor.RED));
             return false;
-        }
-        if (CoopCache.getIslandByOwner(player) != null) {
+        } if (CoopCache.getIslandByOwner(player) != null) {
             STMultiverse.adventure().player(player).sendMessage(Component.text("Your island is already a coop!").color(NamedTextColor.RED));
             return false;
-        }
-        if (CoopCache.getIsland(player) != null) {
+        } if (CoopCache.getIsland(player) != null) {
             STMultiverse.adventure().player(player).sendMessage(Component.text("You are already in a coop!").color(NamedTextColor.RED));
             return false;
         }
+
         CoopIsland coopIsland = IslandCoopUtils.turnIslandIntoCoop(getIsland(player));
+        CoopCache.addIsland(coopIsland);
         boolean coop = (coopIsland.getCoopLeader() != null);
         if (coop) STMultiverse.adventure().player(player).sendMessage(Component.text("Turned island into coop! Invite players via /coop invite <name>.").color(NamedTextColor.GOLD));
         else STMultiverse.adventure().player(player).sendMessage(Component.text("Failed to turn island into coop.").color(NamedTextColor.RED));

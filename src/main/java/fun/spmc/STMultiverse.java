@@ -1,6 +1,7 @@
 package fun.spmc;
 
 import com.onarandombox.MultiverseCore.MultiverseCore;
+import fun.spmc.commands.IslandAdminCommand;
 import fun.spmc.commands.TabCompletion;
 import fun.spmc.commands.ManageCoopCommand;
 import fun.spmc.commands.CreateIslandCommand;
@@ -51,9 +52,11 @@ public final class STMultiverse extends JavaPlugin {
 
         Objects.requireNonNull(getCommand("island")).setExecutor(new CreateIslandCommand());
         Objects.requireNonNull(getCommand("coop")).setExecutor(new ManageCoopCommand());
+        Objects.requireNonNull(getCommand("isa")).setExecutor(new IslandAdminCommand());
 
         Objects.requireNonNull(getCommand("coop")).setTabCompleter(new TabCompletion());
         Objects.requireNonNull(getCommand("island")).setTabCompleter(new TabCompletion());
+        Objects.requireNonNull(getCommand("isa")).setTabCompleter(new TabCompletion());
 
         getServer().getPluginManager().registerEvents(new CoopCache(), this);
         getServer().getPluginManager().registerEvents(new ScoreboardListener(), this);
@@ -70,14 +73,10 @@ public final class STMultiverse extends JavaPlugin {
     }
 
     private boolean setupEconomy() {
-        if (getServer().getPluginManager().getPlugin("Vault") == null) {
-            return false;
-        }
+        if (getServer().getPluginManager().getPlugin("Vault") == null) return false;
         RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
-        if (rsp == null) {
-            return false;
-        }
+        if (rsp == null) return false;
         econ = rsp.getProvider();
-        return econ != null;
+        return true;
     }
 }
