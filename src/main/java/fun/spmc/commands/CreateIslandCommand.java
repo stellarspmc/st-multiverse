@@ -22,7 +22,6 @@ public class CreateIslandCommand implements CommandExecutor {
             return switch (strings[0]) {
                 case "create" -> IslandUtils.createIsland(player);
                 case "tp" -> IslandUtils.teleportPlayerIsland(player, strings);
-                case "lobby" -> IslandUtils.teleportPlayerLobby(player);
                 case "coop" -> IslandUtils.turnIslandCoop(player);
                 case "delete" -> IslandUtils.deleteIsland(player);
                 default -> falseArgument(audience);

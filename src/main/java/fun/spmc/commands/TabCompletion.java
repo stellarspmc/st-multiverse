@@ -21,7 +21,7 @@ public class TabCompletion implements TabCompleter {
             }
             case "island" -> {
                  switch (strings.length) {
-                    case 1 -> { return List.of("create", "tp", "lobby", "coop", "delete"); }
+                    case 1 -> { return List.of("create", "tp", "coop", "delete"); }
                     case 2 -> {
                         if (strings[0].equals("tp")) return List.of("solo", "coop");
                     }
