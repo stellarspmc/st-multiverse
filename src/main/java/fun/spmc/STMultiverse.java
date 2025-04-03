@@ -1,10 +1,7 @@
 package fun.spmc;
 
 import com.onarandombox.MultiverseCore.MultiverseCore;
-import fun.spmc.commands.IslandAdminCommand;
-import fun.spmc.commands.TabCompletion;
-import fun.spmc.commands.ManageCoopCommand;
-import fun.spmc.commands.CreateIslandCommand;
+import fun.spmc.commands.*;
 import fun.spmc.econ.EconomyListener;
 import fun.spmc.island.CoopCache;
 import fun.spmc.scoreboard.sidebar.ScoreboardListener;
@@ -53,10 +50,16 @@ public final class STMultiverse extends JavaPlugin {
         Objects.requireNonNull(getCommand("island")).setExecutor(new CreateIslandCommand());
         Objects.requireNonNull(getCommand("coop")).setExecutor(new ManageCoopCommand());
         Objects.requireNonNull(getCommand("isa")).setExecutor(new IslandAdminCommand());
+        Objects.requireNonNull(getCommand("visit")).setExecutor(new VisitCommand());
+        Objects.requireNonNull(getCommand("hub")).setExecutor(new HubCommand());
+        Objects.requireNonNull(getCommand("lobby")).setExecutor(new HubCommand());
 
         Objects.requireNonNull(getCommand("coop")).setTabCompleter(new TabCompletion());
         Objects.requireNonNull(getCommand("island")).setTabCompleter(new TabCompletion());
         Objects.requireNonNull(getCommand("isa")).setTabCompleter(new TabCompletion());
+        Objects.requireNonNull(getCommand("visit")).setTabCompleter(new TabCompletion());
+        Objects.requireNonNull(getCommand("hub")).setTabCompleter(new TabCompletion());
+        Objects.requireNonNull(getCommand("lobby")).setTabCompleter(new TabCompletion());
 
         getServer().getPluginManager().registerEvents(new CoopCache(), this);
         getServer().getPluginManager().registerEvents(new ScoreboardListener(), this);

@@ -4,6 +4,7 @@ import com.onarandombox.MultiverseCore.api.MultiverseWorld;
 import fun.spmc.STMultiverse;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -78,10 +79,12 @@ public class IslandUtils {
         if (strings.length > 1) {
             if (strings[1].equals("coop") && CoopCache.getIsland(player) != null) {
                 core.teleportPlayer(player, player, new Location(Objects.requireNonNull(CoopCache.getIsland(player)).getMVWorld().getCBWorld(), 3, 67, 3));
+                player.setGameMode(GameMode.SURVIVAL);
                 return true;
             }
         }
         core.teleportPlayer(player, player, new Location(getIsland(player).getCBWorld(), 3, 67, 3));
+        player.setGameMode(GameMode.SURVIVAL);
         return true;
     }
 

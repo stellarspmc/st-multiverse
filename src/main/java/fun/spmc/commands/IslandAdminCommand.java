@@ -36,8 +36,7 @@ public class IslandAdminCommand implements CommandExecutor {
                 case "reload" -> IslandAdminUtils.reloadConfig();
                 default -> false;
             };
-        }
-        return false;
+        } return false;
     }
 
     private static boolean falseArgument(Audience audience) {

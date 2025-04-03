@@ -31,6 +31,9 @@ public class TabCompletion implements TabCompleter {
                 if (strings.length == 1) return List.of("forcetp", "forcelobby", "forcedelete", "reload", "cooplist");
                 else if (strings.length > 1) if (strings[0].equals("forcetp") || strings[0].equals("forcelobby") || strings[0].equals("forcedelete")) return Bukkit.getOnlinePlayers().stream().map(Player::getName).toList();
             }
+            case "visit" -> {
+                if (strings.length == 1) return Bukkit.getOnlinePlayers().stream().map(Player::getName).toList();
+            }
         }
 
         return List.of();
