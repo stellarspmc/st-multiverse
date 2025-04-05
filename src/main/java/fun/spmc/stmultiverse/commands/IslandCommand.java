@@ -1,7 +1,7 @@
-package fun.spmc.commands;
+package fun.spmc.stmultiverse.commands;
 
-import fun.spmc.STMultiverse;
-import fun.spmc.island.IslandUtils;
+import fun.spmc.stmultiverse.STMultiverse;
+import fun.spmc.stmultiverse.island.IslandUtils;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -11,14 +11,14 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-public class CreateIslandCommand implements CommandExecutor {
+public class IslandCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
         if (commandSender instanceof Player player) {
             Audience audience = STMultiverse.adventure().player(player);
 
-            if (strings.length == 0) return falseArgument(audience);
+            if (strings.length == 0) return IslandUtils.teleportPlayerIsland(player, strings);
             return switch (strings[0]) {
                 case "create" -> IslandUtils.createIsland(player);
                 case "tp" -> IslandUtils.teleportPlayerIsland(player, strings);

@@ -1,7 +1,7 @@
-package fun.spmc.island;
+package fun.spmc.stmultiverse.island;
 
 import com.onarandombox.MultiverseCore.api.MultiverseWorld;
-import fun.spmc.STMultiverse;
+import fun.spmc.stmultiverse.STMultiverse;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.stream.Collectors;
 
-import static fun.spmc.STMultiverse.core;
+import static fun.spmc.stmultiverse.STMultiverse.core;
 
 public class IslandAdminUtils {
     public static boolean teleportToPlayerIsland(Player player, @NotNull String[] strings) {

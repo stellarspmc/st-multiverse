@@ -1,6 +1,6 @@
-package fun.spmc.island;
+package fun.spmc.stmultiverse.island;
 
-import fun.spmc.STMultiverse;
+import fun.spmc.stmultiverse.STMultiverse;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

@@ -1,4 +1,4 @@
-package fun.spmc.island;
+package fun.spmc.stmultiverse.island;
 
 import org.bukkit.entity.Player;
 

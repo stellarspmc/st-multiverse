@@ -1,6 +1,6 @@
-package fun.spmc.scoreboard.sidebar;
+package fun.spmc.stmultiverse.scoreboard.sidebar;
 
-import fun.spmc.STMultiverse;
+import fun.spmc.stmultiverse.STMultiverse;
 import me.catcoder.sidebar.ProtocolSidebar;
 import me.catcoder.sidebar.Sidebar;
 import net.kyori.adventure.text.Component;

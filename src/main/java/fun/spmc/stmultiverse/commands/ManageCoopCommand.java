@@ -1,9 +1,9 @@
-package fun.spmc.commands;
+package fun.spmc.stmultiverse.commands;
 
-import fun.spmc.STMultiverse;
-import fun.spmc.island.CoopCache;
-import fun.spmc.island.CoopInviteUtils;
-import fun.spmc.island.CoopIsland;
+import fun.spmc.stmultiverse.STMultiverse;
+import fun.spmc.stmultiverse.island.CoopCache;
+import fun.spmc.stmultiverse.island.CoopInviteUtils;
+import fun.spmc.stmultiverse.island.CoopIsland;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;

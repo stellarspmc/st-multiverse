@@ -1,8 +1,7 @@
-package fun.spmc.commands;
+package fun.spmc.stmultiverse.commands;
 
-import fun.spmc.STMultiverse;
-import fun.spmc.island.IslandAdminUtils;
-import fun.spmc.island.IslandUtils;
+import fun.spmc.stmultiverse.STMultiverse;
+import fun.spmc.stmultiverse.island.IslandAdminUtils;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;

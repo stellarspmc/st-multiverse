@@ -1,6 +1,6 @@
-package fun.spmc.island;
+package fun.spmc.stmultiverse.island;
 
-import fun.spmc.STMultiverse;
+import fun.spmc.stmultiverse.STMultiverse;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.entity.Player;

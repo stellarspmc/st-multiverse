@@ -1,6 +1,6 @@
-package fun.spmc.scoreboard.tab;
+package fun.spmc.stmultiverse.scoreboard.tab;
 
-import fun.spmc.STMultiverse;
+import fun.spmc.stmultiverse.STMultiverse;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;

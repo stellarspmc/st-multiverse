@@ -1,6 +1,6 @@
-package fun.spmc.econ;
+package fun.spmc.stmultiverse.econ;
 
-import fun.spmc.STMultiverse;
+import fun.spmc.stmultiverse.STMultiverse;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

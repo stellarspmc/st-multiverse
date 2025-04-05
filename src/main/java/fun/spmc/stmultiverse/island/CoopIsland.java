@@ -1,14 +1,14 @@
-package fun.spmc.island;
+package fun.spmc.stmultiverse.island;
 
 import com.onarandombox.MultiverseCore.api.MultiverseWorld;
-import fun.spmc.STMultiverse;
+import fun.spmc.stmultiverse.STMultiverse;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.text.MessageFormat;
 import java.util.*;
 
-import static fun.spmc.STMultiverse.core;
+import static fun.spmc.stmultiverse.STMultiverse.core;
 
 public class CoopIsland {
 

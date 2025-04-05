@@ -1,4 +1,4 @@
-package fun.spmc.commands;
+package fun.spmc.stmultiverse.commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;

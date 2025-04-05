@@ -1,8 +1,8 @@
-package fun.spmc.commands;
+package fun.spmc.stmultiverse.commands;
 
 import com.onarandombox.MultiverseCore.api.MultiverseWorld;
-import fun.spmc.STMultiverse;
-import fun.spmc.island.*;
+import fun.spmc.stmultiverse.STMultiverse;
+import fun.spmc.stmultiverse.island.*;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
@@ -14,7 +14,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import static fun.spmc.STMultiverse.core;
+import static fun.spmc.stmultiverse.STMultiverse.core;
 
 public class VisitCommand implements CommandExecutor {
 
@@ -30,6 +30,7 @@ public class VisitCommand implements CommandExecutor {
 
             if (target == player) {
                 core.teleportPlayer(player, player, new Location(targetWorld.getCBWorld(), 3, 67, 3));
+                player.setGameMode(GameMode.SURVIVAL);
                 return true;
             }
 
@@ -37,6 +38,7 @@ public class VisitCommand implements CommandExecutor {
                 CoopIsland targetIsland = CoopCache.getIslandByOwner(target);
                 if (targetIsland.playerInCoop(player)) {
                     core.teleportPlayer(player, player, new Location(targetIsland.getMVWorld().getCBWorld(), 3, 67, 3));
+                    player.setGameMode(GameMode.SURVIVAL);
                     return true;
                 }
             }

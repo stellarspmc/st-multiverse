@@ -1,11 +1,11 @@
-package fun.spmc;
+package fun.spmc.stmultiverse;
 
 import com.onarandombox.MultiverseCore.MultiverseCore;
-import fun.spmc.commands.*;
-import fun.spmc.econ.EconomyListener;
-import fun.spmc.island.CoopCache;
-import fun.spmc.scoreboard.sidebar.ScoreboardListener;
-import fun.spmc.scoreboard.tab.TabListener;
+import fun.spmc.stmultiverse.commands.*;
+import fun.spmc.stmultiverse.econ.EconomyListener;
+import fun.spmc.stmultiverse.island.CoopCache;
+import fun.spmc.stmultiverse.scoreboard.sidebar.ScoreboardListener;
+import fun.spmc.stmultiverse.scoreboard.tab.TabListener;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
@@ -47,17 +47,17 @@ public final class STMultiverse extends JavaPlugin {
         core = (MultiverseCore) Bukkit.getServer().getPluginManager().getPlugin("Multiverse-Core");
         adventure = BukkitAudiences.create(this);
 
-        Objects.requireNonNull(getCommand("island")).setExecutor(new CreateIslandCommand());
+        Objects.requireNonNull(getCommand("island")).setExecutor(new IslandCommand());
         Objects.requireNonNull(getCommand("coop")).setExecutor(new ManageCoopCommand());
         Objects.requireNonNull(getCommand("isa")).setExecutor(new IslandAdminCommand());
-        Objects.requireNonNull(getCommand("visit")).setExecutor(new VisitCommand());
+        //Objects.requireNonNull(getCommand("visit")).setExecutor(new VisitCommand());
         Objects.requireNonNull(getCommand("hub")).setExecutor(new HubCommand());
         Objects.requireNonNull(getCommand("lobby")).setExecutor(new HubCommand());
 
         Objects.requireNonNull(getCommand("coop")).setTabCompleter(new TabCompletion());
         Objects.requireNonNull(getCommand("island")).setTabCompleter(new TabCompletion());
         Objects.requireNonNull(getCommand("isa")).setTabCompleter(new TabCompletion());
-        Objects.requireNonNull(getCommand("visit")).setTabCompleter(new TabCompletion());
+        //Objects.requireNonNull(getCommand("visit")).setTabCompleter(new TabCompletion());
         Objects.requireNonNull(getCommand("hub")).setTabCompleter(new TabCompletion());
         Objects.requireNonNull(getCommand("lobby")).setTabCompleter(new TabCompletion());
 
