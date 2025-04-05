@@ -14,3 +14,5 @@ commands:
     description: visit cmd
   hub:
     description: hub cmd
+  lobby:
+    description: hub cmd
