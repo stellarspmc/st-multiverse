@@ -25,7 +25,7 @@ public class VisitCommand implements CommandExecutor {
             Player target = Bukkit.getPlayer(strings[0]);
             if (target == null) return falseArgument(player);
 
-            MultiverseWorld targetWorld = IslandUtils.getIsland(player);
+            MultiverseWorld targetWorld = IslandUtils.getIsland(target);
             if (targetWorld == null) return noIsland(player);
 
             if (target == player) {
