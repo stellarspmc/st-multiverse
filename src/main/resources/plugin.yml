@@ -1,5 +1,5 @@
 name: st-multiverse
-version: '1.11'
+version: '1.12'
 main: fun.spmc.STMultiverse
 api-version: '1.20'
 softdepend: ['Multiverse-Core', 'Vault']
@@ -10,3 +10,7 @@ commands:
     description: coop cmd
   isa:
     description: island admin cmd
+  visit:
+    description: visit cmd
+  hub:
+    description: hub cmd
